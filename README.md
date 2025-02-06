@@ -85,8 +85,8 @@ Assignments (30%), Mid-term (and Mini-exam) (20%), Papers review and presentatio
 
 **Academic Honesty** 
 
-[Sharif CE Department Honor Code](https://wiki.ce.sharif.edu/%D8%A2%DB%8C%DB%8C%D9%86_%D9%86%D8%A7%D9%85%D9%87/%D8%A2%D8%AF%D8%A7%D8%A8_%D9%86%D8%A7%D9%85%D9%87_%D8%A7%D9%86%D8%AC%D8%A7%D9%85_%D8%AA%D9%85%D8%B1%DB%8C%D9%86_%D9%87%D8%A7%DB%8C_%D8%AF%D8%B1%D8%B3%DB%8C) (please read it carefully!)
-
+[Sharif CE Department Honor Code](https://docs.ce.sharif.edu/rules/ethics) (please read it carefully!)
+[Sharif CE Department Violation Code](https://docs.ce.sharif.edu/rules/violation) (please read it carefully!)
 
 
 **Homework Submission**
