@@ -17,7 +17,7 @@ This course provides a comprehensive, full-stack perspective on blockchain syste
 **Course Logistics**
 
    * **Time:** Sun. & Tues. 10:30 - 12:00
-   * **Location:** CE-201 & [vc.sharif.edu/ch/amsadeghzadeh](https://vc.sharif.edu/ch/amsadeghzadeh)
+   * **Location:** CE-203 & [vc.sharif.edu/ch/amsadeghzadeh](https://vc.sharif.edu/ch/amsadeghzadeh)
    * **Contact:** Announcements and all course-related questions will happen on the [Quera](https://quera.org/course/add_to_course/course/20720/) forum. 
      * All official announcements and communication will happen over Quera.
      * For external enquiries, emergencies, or personal matters that you don't wish to put in a private post, you can email me at sadeghzadeh_at_sharif_dot_edu
