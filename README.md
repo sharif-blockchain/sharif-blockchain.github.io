@@ -33,7 +33,7 @@ _Welcome_ to the public page for the course on Blockchain Principles and Applica
 
 **Course Staff**
 
-* _Aghapour_ (Head Course Assistant) - Email: [Aghapour](mailto:aghapour@gmail.com)
+* _Amir Mohammad Aghapour_ (Head Course Assistant) - Email: [Aghapour](mailto:amir.aghapour@sharif.edu)
 
 
 
