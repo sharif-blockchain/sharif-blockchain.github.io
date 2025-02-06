@@ -7,7 +7,11 @@
 &nbsp;&nbsp;&nbsp;
 
 
-_Welcome_ to the public page for the course on Blockchain Principles and Applications. 
+_Welcome_ to the public page for the course on Blockchain Principles and Applications. Blockchains are decentralized digital trust mechanisms that have the potential to reshape the role of "digital platforms" in today's world. Currently, digital platform companies dominate the global economy, with seven of the largest firms by market capitalization—including Apple, Google, Microsoft, Amazon, Alibaba, and Tencent—built on centralized models.
+
+The emergence of blockchains began with Bitcoin, the first cryptocurrency, introduced in 2009. Over the past decade, blockchain technology has undergone significant advancements, particularly in its design and architecture. However, while technical innovations have progressed, broader applications beyond cryptocurrencies are still developing.
+
+This course provides a comprehensive, full-stack perspective on blockchain systems, examining them as integrated ecosystems. We will explore key components, including networking, incentive mechanisms, consensus protocols, and application-layer functionalities, to understand how modern blockchain systems are designed and operated.
 
 
 **Course Logistics**
