@@ -117,3 +117,248 @@ OP_2 <pk4> <pk3> <pk2> <pk1> OP_4 OP_CHECKMULTISIG
 1. نوه مادربزرگِ سؤال قبل نگران است تا زمانی که 18 ساله شود ممکن است کلید خصوصی کیف پول خود را گم کرده و هدیه از دست برود؛ در نتیجه تصمیم می‌گیرد یک کیف پول حضانتی مبتنی بر خدمات ابری گرفته و با استفاده از یک تراکنش، هدیه را به کیف پول جدید خود انتقال دهد. این تراکنش در حال حاضر به دلیل قفل زمانی، در شبکه پذیرفته نمی‌‎شود ولی نوه حاضر است در ازای پرداخت مقدار مشخصی از هدیه خود، این تراکنش توسط سایرین نگهداری و بعد از 18 سالگی‌اش ثبت شود. این کار چگونه قابل انجام است؟
 1. مغازه‌داری از یک کیف پول گرم برای نگهداری درآمدهای روزانه و از یک کیف پول سخت‌افزاری سرد برای پس‌انداز استفاده می‌کند. او تصمیم به خرید ماشین می‌گیرد، امّا نمی‌خواهد کیف پول سرد را از محل نگهداری آن خارج کند. همچنین با توجه به اینکه ممکن است جست‌وجو برای ماشین و خرید آن چند روز طول بکشد، نمی‌خواهد مقدار زیادی بیتکوین در کیف پول گرم خود نگهداری کند؛ در نتیجه او می‌خواهد تا زمان قطعی شدن معامله، بیتکوین در کیف پول سرد باقی بماند. دقت کنید مغازه‌دار، قیمت ماشین و آدرس فروشنده را از قبل **نمی‌داند**. این مغازه‌دار محتاط چطور ماشین بخرد؟
 1. اگر مغازه‌دار بخش قبل، قیمت دقیق ماشین را از قبل **بداند** امّا آدرس فروشنده را فقط پای معامله بفهمد، چگونه می‌تواند نسبت به بخش قبل بهتر عمل کند؟
+
+
+
+در این سؤال یک پروتکل معامله با کمک امین(Escrow) پیاده‌سازی و با استفاده از شبکه محلی تست بیتکوین، اجرا می‌شود. به نکات زیر در تحویل و پاسخ‌دهی توجه کنید:
+
+- نسخه کامل و قابل اجرای کد (بدون خطای اظهار) را به عنوان پاسخ ارسال کنید. می‌توانید پاسخ هر بخش را در فایل جداگانه یا تمام آن‌ها را در یک فایل پیاده‌سازی کنید.
+- پاسخ خود را می‌توانید به صورت اسکریپت پایتون(py.) یا دفترچه ژوپیتر(ipynb.) ارسال کنید.
+- پاسخ به سؤالاتی که در میان مراحل پیاده‌سازی مطرح شده و همچنین خروجی اجرای هر بخش را به صورت تصویر یا متن ارائه دهید.
+- پاسخ این سؤال را به همراه پاسخ سؤالات نظری، در یک فایل Zip ارسال کنید. 
+
+---
+
+# راه‌اندازی محیط اجرا
+
+ابتدا 28.1 Bitcoin Core متناسب با سیستم عامل خود را از [این لینک](https://bitcoincore.org/bin/bitcoin-core-28.1/) دریافت و در محل دلخواه `BITCOIN_ROOT` نصب کنید. سپس [این فایل Zip](https://my.sharif.edu/s/EfsmCy7RF2doSqx) را که حاوی کد محیط تست بیتکوین است، دریافت و در `BITCOIN_ROOT` قرار دهید. در نهایت نام پوشه `BITCOIN_ROOT/bin` را به `BITCOIN_ROOT/src` تغییر دهید. اکنون ساختار کلی محل نصب بیتکوین به صورت زیر است:
+```
+BITCOIN_ROOT
+└─ src
+|     bitcoind,bitcoin-cli,...
+└─ test
+|  |  config.ini
+|  └─ functional 
+└─ share
+```
+
+در فایل `config.ini` آدرس مطلق(Absolute path) معادل `BITCOIN_ROOT` را جایگزین کنید. برای اطمینان از صحت انجام تمام مراحل، قطعه کد زیر را در محیط پایتون اجرا کنید.
+
+```python
+import sys
+PATH_BITCOIN_TEST = BITCOIN_ROOT + "/test/functional"
+sys.path.insert(0, PATH_BITCOIN_TEST)
+
+from test_framework.test_shell import TestShell
+
+test = TestShell().setup(num_nodes=1, setup_clean_chain=True)
+test.shutdown()
+```
+
+در صورت اجرای صحیح، عبارت `Tests successful` در انتهای خروجی خواهد بود. لازم به ذکر است کدهای تست از [مخزن گیتهاب Bitcoin Core](https://github.com/bitcoin/bitcoin) برداشته شده است. در صورتی که خودتان با استفاده از مخزن کامپایل کنید، نیازی به تغییر فایل `config.ini` نیست. اجرای دستور `test.shutdown()` در انتهای کار برای اتمام اجرا انجام می‌شود و در پیاده‌سازی خود می‌توانید با ساختار `try-catch` آن را انجام دهید.
+
+---
+
+# پیاده‌سازی نسخه 1 پروتکل معامله
+نسخه اولیه پروتکل از یک امضای چندگانه برای وابسته کردن نتیجه پرداخت به توافق اکثریت استفاده می‌کند. تصویر زیر فرایند کلی معامله با کمک امین را در شرایطی که هر دو طرف معامله به تعهد خود عمل کردند و نزاعی رخ نداده، نشان می‌دهد.
+
+![توضیح تصویر](https://my.sharif.edu/s/CwqsxjEXEdqSDLE/preview)
+
+برای پیاده‌سازی از کتابخانه `python-bitcoin-utils` استفاده شده است که برای نصب و مطالعه مستندات آن می‌توانید به این [مخزن گیتهاب](https://github.com/karask/python-bitcoin-utils) مراجعه کنید. همچنین برای مطالعه در مورد واسط برنامه‌نوسی گره بیتکوین می‌توانید از [این لینک](https://developer.bitcoin.org/reference/rpc/index.html) استفاده کنید. جهت سادگی پیاده‌سازی، کدهای ارائه شده در این تمرین بر اساس نسخه اولیه و منسوخ(Legacy) تراکنش‌ها هستند. نیازی به پیاده‌سازی با SegWit یا Taproot وجود ندارد.
+
+قطه کد زیر، پیاده‌سازی حالت نمایش داده‌شده در شکل فوق را نشان می‌دهد. در این کد، الیس(خریدار) با استخراج در شبکه، 50 بیتکوین بدست آورده و مقدار 0.11 از آن را به امضای چندگانه منتقل کرده است. سپس با فرض اینکه کوله‌پشتی خریداری شده به دست الیس رسیده است، او و باب(فروشنده) با امضای خود این موضوع را تأیید کردند و پول به باب منتقل شده است.
+```python
+import sys, random
+from bitcoinutils.keys import PrivateKey
+from bitcoinutils.script import Script
+from bitcoinutils.utils import to_satoshis
+from bitcoinutils.transactions import Transaction, TxInput, TxOutput
+
+PATH_BITCOIN_TEST = BITCOIN_ROOT + "/test/functional"
+sys.path.insert(0, PATH_BITCOIN_TEST)
+
+from test_framework.test_shell import TestShell
+
+random.seed(14032)
+test = TestShell().setup(num_nodes=1,
+                         setup_clean_chain=True,
+                         randomseed=14032)
+node = test.nodes[0]
+
+alice_privkey = PrivateKey(b=random.randbytes(32))
+alice_pubkey = alice_privkey.get_public_key()
+alice_address = alice_pubkey.get_address()
+bob_privkey = PrivateKey(b=random.randbytes(32))
+bob_pubkey = bob_privkey.get_public_key()
+bob_address = bob_pubkey.get_address()
+judge_privkey = PrivateKey(b=random.randbytes(32))
+judge_pubkey = judge_privkey.get_public_key()
+judge_address = judge_pubkey.get_address()
+
+fund_block = node.generatetoaddress(nblocks=100,
+                                    address=alice_address.to_string(),
+                                    invalid_call=False)[0]
+fund_txid = node.getblock(blockhash=fund_block, verbosity=1)['tx'][0]
+
+escrow_script = Script()
+escrow_input = TxInput(fund_txid, 0)
+escrow_tx = Transaction([escrow_input],
+                        [TxOutput(to_satoshis(.11), escrow_script),
+                         TxOutput(to_satoshis(50 - .12),
+                                  alice_address.to_script_pub_key())])
+escrow_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[escrow_tx.serialize()])[0]
+assert result['allowed'], f"escrow1 failed: {result['reject-reason']}"
+print('escrow1', result)
+escrow_txid = node.sendrawtransaction(escrow_tx.serialize())
+
+payment_input = TxInput()
+payment_tx = Transaction([payment_input],
+                         [TxOutput(to_satoshis(.1099),
+                                   bob_address.to_script_pub_key())])
+payment_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[payment_tx.serialize()])[0]
+assert result['allowed'], f"payment1 failed: {result['reject-reason']}"
+print('payment1', result)
+```
+
+> **وظیفه 1**: تراکنش ساخت وجه امانی را تکمیل کنید.
+
+>  **وظیفه 2**: تراکنش پرداخت به فروشنده را، وقتی که الیس و باب هر دو موافق هستند، تکمیل کنید.
+
+> **سؤال 1**: در ابتدا 100 بلوک توسط الیس استخراج شده است. این تعداد را به مقدار کمتری تغییر دهید. علت وقوع خطا بعد از این تغییر چیست؟ چرا چنین قانونی در بیتکوین تعریف شده است؟
+
+>**سؤال 2**: کارمزد هر یک از دو تراکنش `fund_tx` و `payment_tx`، بدون در نظر گرفتن سوبسید بیتکوین، چقدر است؟
+
+
+دو طرف معامله همیشه به تعهدات خود عمل نمی‌کنند. فرض کنید الیس بعد از دریافت کوله‌پشتی، از پرداخت امتناع کند. در قطعه کد زیر، باب با همکاری داور معامله، مبلغ پرداختی را دریافت می‌کند. داور معامله هم بخشی از مبلغ را به عنوان کارمزد دریافت می‌کند.
+
+```python
+dispute_input = TxInput()
+dispute_tx = Transaction([dispute_input], [])
+dispute_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[dispute_tx.serialize()])[0]
+assert result['allowed'], f"dispute1 failed: {result['reject-reason']}"
+print('dispute1', result)
+```
+
+>**وظیفه 3**: تراکنش رسیدگی به نزاع را تکمیل کنید، طوری که 0.002 بیتکوین کارمزد داور و 0.001 بیتکوین کارمزد تراکنش باشد.
+
+>**سؤال 3**: با تغییر در ترتیب انجام عملیات‌های پروتکل، این امکان را فراهم کنید که باب بدون نیاز به آنلاین بودن در زمان رسیدگی به نزاع، در صورت تأیید داور، وجه امانی را دریافت کند.
+
+---
+# پیاده‌سازی نسخه 2 پروتکل معامله
+یکی از ضعف‌های نسخه 1 پروتکل، عدم اختصاص کارمزد به داور در صورت عدم رخ‌دادن نزاع است. این امر باعث انگیزه برای تبانی داور است. همچنین مطلوب است پرداخت کارمزد تنها بعد از اتمام معامله انجام شود. یک راهکار استفاده از [قفل چکیده(Hashlock)](https://en.bitcoin.it/wiki/Hashlock) است. برای این کار، اسکریپت وجه امانی طوری طراحی می‌شود که برای خرج کردن آن، علاوه بر امضای چندگانه، نیاز به رمز یک‌بار مصرف نیز وجود داشته باشد. دو طرف معامله، قبل از ثبت آن توسط خریدار، با استفاده فرایندی مانند [توافق کلید دیفی هلمن](https://en.wikipedia.org/wiki/Elliptic-curve_Diffie%E2%80%93Hellman) بر سر این رمز توافق می‌کنند. چنانچه از رمز یکسان برای قفل کردن کارمزد داور هم استفاده شود، بعد از اتمام معامله و پرداخت وجه امانی به فروشنده یا عودت آن به خریدار، رمز می‌تواند به داور داده شود تا کارمزد خود را تحویل بگیرد.
+
+قطعه کد زیر پیاده‌سازی این نسخه از پروتکل را نشان می‌دهد. معامله انجام شده مشابه بخش قبل است، با ین تفاوت که کارمزد داور به یک UTxO جداگانه منتقل شده و به دلیل  غیر استاندارد بودن اسکریپت نسخه 2، از [P2SH](https://en.bitcoin.it/wiki/Pay_to_script_hash) استفاده شده است. همچنین برای وجه امانی، از باقی‌مانده موجودی الیس در تراکنش `escrow_tx` بخش قبل استفاده شده است.
+
+```python
+otp = random.randbytes(4)
+escrow2_script = Script()
+fee2_script = Script()
+escrow2_input = TxInput(escrow_txid, 1)
+escrow2_tx = Transaction([escrow2_input], [
+  TxOutput(to_satoshis(.11), escrow2_script.to_p2sh_script_pub_key()),
+  TxOutput(to_satoshis(.002), fee2_script.to_p2sh_script_pub_key()),
+  TxOutput(to_satoshis(50 - .24), alice_address.to_script_pub_key())])
+escrow2_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[escrow2_tx.serialize()])[0]
+assert result['allowed'], f"escrow2 failed: {result['reject-reason']}"
+print('escrow2', result)
+escrow2_txid = node.sendrawtransaction(escrow2_tx.serialize())
+
+payment2_input = TxInput()
+fee2_input = TxInput()
+payment2_tx = Transaction([payment2_input, fee2_input], [
+   TxOutput(to_satoshis(.1099), bob_address.to_script_pub_key()),
+   TxOutput(to_satoshis(.002), judge_address.to_script_pub_key())
+])
+payment2_input.script_sig = Script()
+fee2_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[payment2_tx.serialize()])[0]
+assert result['allowed'], f"payment2 failed: {result['reject-reason']}"
+print('payment2', result)
+```
+
+
+>**وظیفه 4**: تراکنش ساخت نسخه 2 وجه امانی را تکمیل کنید.
+
+>**وظیفه 5**: تراکنش پرداخت به فروشنده و برداشت کارمزد توسط داور را، در شرایطی که رمز یک‌بار مصرف به او داده شده است، تکمیل کنید.
+
+>**سؤال 4**: آیا ممکن است رمزعبور استفاده شده برای وجه امانی معامله با رمز عبور کارمزد داور متفاوت باشد و داور نتواند کارمزد خود را دریافت کند؟
+
+>**سؤال 5**: اگر پرداخت وجه امانی با توافق دو طرف به فروشنده انجام شود و معامله بدون ارسال رمز به داور تمام شود، داور چگونه می‌تواند کارمزد خود را برداشت کند؟
+
+---
+
+# پیاده‌سازی نسخه 3 پروتکل معامله
+
+حالتی را در نسخه 2 پروتکل در نظر بگیرید که دو طرف معامله از نهایی کردن آن امتناع کنند یا رمز قفل چکیده مفقود شود. در این صورت تمام دارایی مسدود خواهد ماند. برای حل این مشکل می‌توان یک تاریخ انقضاء برای قفل چکیده در نظر گرفت طوری که بعد از آن، قفل چکیده از اسکریپت حذف شود و امضای 2 از 3 به امضای 2 از 2 تبدیل شود. در این حالت داور می‌تواند بدون وابستگی به نتیجه معاله کارمزد خود را برداشت کرده و عملاً از معامله کنار بکشد.
+
+قطعه کد زیر پیاده‌سازی این حالت را با تاریخ انقضای 50 بلوک (در واقعیت این مقدار بسیار بیشتر خواهد بود) نشان می‌دهد. تمام شرایط مشابه حالت قبل است و تنها تفاوت در نحوه برداشت کارمزد توسط داور و انجام پرداخت است.
+
+```python
+from bitcoinutils.constants import TYPE_RELATIVE_TIMELOCK
+from bitcoinutils.transactions import Sequence
+
+otp = random.randbytes(4)
+seq = Sequence(TYPE_RELATIVE_TIMELOCK, 50)
+escrow3_script = Script()
+fee3_script = Script()
+escrow3_input = TxInput(escrow2_txid, 2)
+escrow3_tx = Transaction([escrow3_input], [
+    TxOutput(to_satoshis(.11), escrow3_script.to_p2sh_script_pub_key()),
+    TxOutput(to_satoshis(.002), fee3_script.to_p2sh_script_pub_key()),
+    TxOutput(to_satoshis(50 - .36), alice_address.to_script_pub_key())])
+escrow3_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[escrow3_tx.serialize()])[0]
+assert result['allowed'], f"escrow3 failed: {result['reject-reason']}"
+print('escrow3', result)
+escrow3_txid = node.sendrawtransaction(escrow3_tx.serialize())
+
+payment3_input = TxInput()
+fee3_input = TxInput()
+payment3_tx = Transaction([payment3_input], [
+    TxOutput(to_satoshis(.05), bob_address.to_script_pub_key()),
+    TxOutput(to_satoshis(.05), alice_address.to_script_pub_key())
+])
+fee3_tx = Transaction([fee3_input], [
+    TxOutput(to_satoshis(.0019), judge_address.to_script_pub_key())
+])
+# with otp:
+payment3_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[payment3_tx.serialize()])[0]
+assert result['allowed'], f"payment3+otp failed: {result['reject-reason']}"
+print('payment3+otp', result)
+fee3_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[fee3_tx.serialize()])[0]
+assert result['allowed'], f"fee3+otp failed: {result['reject-reason']}"
+print('fee3+otp', result)
+# no otp:
+otp = None
+payment3_tx.inputs[0].sequence = seq.for_input_sequence()
+payment3_input.script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[payment3_tx.serialize()])[0]
+assert result['reject-reason'] == 'non-BIP68-final'
+
+fee3_tx.inputs[0].sequence = seq.for_input_sequence()
+fee3_tx.inputs[0].script_sig = Script()
+result = node.testmempoolaccept(rawtxs=[fee3_tx.serialize()])[0]
+assert result['reject-reason'] == 'non-BIP68-final'
+
+node.generatetoaddress(nblocks=50,
+                       address=alice_address.to_string(),
+                       invalid_call=False)
+result = node.testmempoolaccept(rawtxs=[payment3_tx.serialize()])[0]
+assert result['allowed'], f"payment3-otp failed: {result['reject-reason']}"
+print('payment3-otp', result)
+result = node.testmempoolaccept(rawtxs=[fee3_tx.serialize()])[0]
+assert result['allowed'], f"fee3-otp failed: {result['reject-reason']}"
+print('fee3-otp', result)
+```
+
+>**وظیفه 6**: تراکنش ساخت نسخه 3 وجه امانی را تکمیل کنید.
+
+>**وظیفه 7**: تراکنش پرداخت و برداشت کارمزد توسط داور را، در شرایطی که رمز یک‌بار مصرف در دسترس هست، تکمیل کنید.
+
+>**وظیفه 8**: تراکنش پرداخت و برداشت کارمزد توسط داور را، در شرایطی که رمز یک‌بار مصرف در دسترس نیست، تکمیل کنید
