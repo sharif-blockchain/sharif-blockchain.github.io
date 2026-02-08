@@ -124,4 +124,6 @@ HW[HW#]-[FamilyName]-[std#] (For example HW3-Hoseini-401234567)
 | 12 | 1/24 |   Scaling Bitcoin:  <br> Layer 1 Scaling  |   Scaling throughput    | [Lec12](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec12.pdf)   |    |     |
 | 13 | 1/26 |   Scaling Bitcoin:  <br> Layer 1 Scaling  |   Scaling latency    | [Lec13](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec13.pdf)   |    |     |
 | 14 | 1/31 |   Scaling Bitcoin:  <br> Layer 1 Scaling  |   Sharding    | [Lec14](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec14.pdf)   |    |     |
-
+| 15 | 2/2 |   Student Presentation  |       |   |    |     |
+| 16 | 2/7 |   Student Presentation  |       |   |    |     |
+| 17 | 2/9 |   Student Presentation  |       |   |    |     |
