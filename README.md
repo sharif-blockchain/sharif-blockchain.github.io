@@ -130,8 +130,8 @@ HW[HW#]-[FamilyName]-[std#] (For example HW3-Hoseini-401234567)
 | 18 | 2/14 |   Scaling Bitcoin:  <br> Layer 1 Scaling   |   Sharding <br> Proof of stake    | [Lec15](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec15.pdf)  |    |     |
 | 19 | 2/16 |   Scaling Bitcoin:  <br> Layer 1 Scaling   |    Proof of stake   | [Lec16](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec16.pdf)  |    |     |
 | 20 | 2/21 |   Scaling Bitcoin:  <br> Layer 1 Scaling   |    Proof of stake       |  [Lec17](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec17.pdf) |    |     |
-| 21 | 2/23 |     |       |  [Lec18](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec18.pdf) |    |     |
-| 22 | 2/28 |     |       |  [Lec19](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec19.pdf) |    |     |
+| 21 | 2/23 |  Ethereum   |    EVM   |  [Lec18](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec18.pdf) |    |     |
+| 22 | 2/28 |    Ethereum |  Solidity     |  [Lec19](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec19.pdf) |    |     |
 | 23 | 2/30 |     |       |  [Lec20](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec20.pdf) |    |     |
 | 24 | 3/4 |     |       |  [Lec21](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec21.pdf) |    |     |
 | 25 | 3/6 |     |       |  [Lec22](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec22.pdf) |    |     |
