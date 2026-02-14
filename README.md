@@ -127,3 +127,12 @@ HW[HW#]-[FamilyName]-[std#] (For example HW3-Hoseini-401234567)
 | 15 | 2/2 |   Student Presentation  |       |   |    |     |
 | 16 | 2/7 |   Student Presentation  |       |   |    |     |
 | 17 | 2/9 |   Student Presentation  |       |   |    |     |
+| 18 | 2/14 |     |       |   |    |     |
+| 19 | 2/16 |     |       |   |    |     |
+| 20 | 2/21 |     |       |   |    |     |
+| 21 | 2/23 |     |       |   |    |     |
+| 22 | 2/28 |     |       |   |    |     |
+| 23 | 2/30 |     |       |   |    |     |
+| 24 | 3/4 |     |       |   |    |     |
+| 25 | 3/6 |     |       |   |    |     |
+| 26 | 3/11 |     |       |   |    |     |
