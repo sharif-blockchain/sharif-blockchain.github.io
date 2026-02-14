@@ -127,12 +127,12 @@ HW[HW#]-[FamilyName]-[std#] (For example HW3-Hoseini-401234567)
 | 15 | 2/2 |   Student Presentation  |       |   |    |     |
 | 16 | 2/7 |   Student Presentation  |       |   |    |     |
 | 17 | 2/9 |   Student Presentation  |       |   |    |     |
-| 18 | 2/14 |     |       |   |    |     |
-| 19 | 2/16 |     |       |   |    |     |
-| 20 | 2/21 |     |       |   |    |     |
-| 21 | 2/23 |     |       |   |    |     |
-| 22 | 2/28 |     |       |   |    |     |
-| 23 | 2/30 |     |       |   |    |     |
-| 24 | 3/4 |     |       |   |    |     |
-| 25 | 3/6 |     |       |   |    |     |
-| 26 | 3/11 |     |       |   |    |     |
+| 18 | 2/14 |     |       | [Lec15](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec15.pdf)  |    |     |
+| 19 | 2/16 |     |       | [Lec16](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec16.pdf)  |    |     |
+| 20 | 2/21 |     |       |  [Lec17](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec17.pdf) |    |     |
+| 21 | 2/23 |     |       |  [Lec18](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec18.pdf) |    |     |
+| 22 | 2/28 |     |       |  [Lec19](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec19.pdf) |    |     |
+| 23 | 2/30 |     |       |  [Lec20](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec20.pdf) |    |     |
+| 24 | 3/4 |     |       |  [Lec21](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec21.pdf) |    |     |
+| 25 | 3/6 |     |       |  [Lec22](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec22.pdf) |    |     |
+| 26 | 3/11 |     |       |  [Lec23](https://github.com/sharif-blockchain/sharif-blockchain.github.io/raw/main/Lectures/BC_Lec23.pdf) |    |     |
